@@ -9,7 +9,7 @@ const router = require('./routes');
 const app = new Koa();
 
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 const db = require('./models');
 db.sequelize.sync()
