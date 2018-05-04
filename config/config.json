@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
+    "password": null,
     "database": "todolist_dev",
     "host": "localhost",
     "dialect": "mysql",
@@ -9,7 +9,7 @@
   },
   "test": {
     "username": "root",
-    "password": "root",
+    "password": null,
     "database": "todolist_test",
     "host": "localhost",
     "dialect": "mysql",
@@ -17,7 +17,7 @@
   },
   "production": {
     "username": "root",
-    "password": "root",
+    "password": null,
     "database": "todolist_prod",
     "host": "localhost",
     "dialect": "mysql",
