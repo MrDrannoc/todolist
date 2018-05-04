@@ -19,7 +19,7 @@
     "username": "root",
     "password": null,
     "database": "todolist_prod",
-    "host": "localhost",
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "secret": "secret"
   }
