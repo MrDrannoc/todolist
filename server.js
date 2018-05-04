@@ -24,4 +24,5 @@ app.use(serve(`${__dirname}/dist`));
 app.use(router.routes())
 
 app.listen(PORT);
+console.log(process.env.NODE_ENV);
 console.log(`Server is listening on PORT ${PORT}`);
