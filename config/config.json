@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "koa_api_db",
+    "database": "todolist_dev",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "secret": "secret"
@@ -10,7 +10,7 @@
   "test": {
     "username": "root",
     "password": null,
-    "database": "database_test",
+    "database": "todolist_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "secret": "secret"
@@ -18,7 +18,7 @@
   "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
+    "database": "todolist_prod",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "secret": "secret"
