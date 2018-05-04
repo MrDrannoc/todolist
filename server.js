@@ -24,8 +24,4 @@ app.use(router.routes())
 
 app.listen(PORT);
 console.log('env:', process.env.NODE_ENV);
-console.log('username:', process.env.DB_USERNAME);
-console.log('password:', process.env.DB_PASSWORD);
-console.log('dbname:', process.env.DB_NAME);
-console.log('host:', process.env.DB_HOSTNAME);
 console.log(`Server is listening on PORT ${PORT}`);

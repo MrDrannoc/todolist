@@ -21,6 +21,9 @@
     "database": "todolist_prod",
     "host": "localhost",
     "dialect": "mysql",
+    "dialectOptions": { 
+      "socketPath": "/srv/run/mysqld/mysqld.sock"
+    },
     "secret": "secret"
   }
 }
