@@ -47,7 +47,7 @@ module.exports = {
                 ctx.throw(500, `L'utilisateur n'existe pas!`);
             }
 
-            const matched = UtilService.comparedPassword(password, user.password);
+            const matched = await UtilService.comparedPassword(password, user.password);
             if (matched) {
                 const token = JwtService.issue({
                     payload: {

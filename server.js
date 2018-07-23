@@ -23,6 +23,4 @@ app.use(serve(`${__dirname}/dist`));
 app.use(router.routes())
 
 app.listen(PORT);
-console.log('env:', process.env.NODE_ENV);
-console.log('env:', process.env.MYSQL_PWD);
 console.log(`Server is listening on PORT ${PORT}`);
