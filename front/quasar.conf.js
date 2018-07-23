@@ -19,10 +19,10 @@ module.exports = function (ctx) {
     supportIE: true,
     build: {
       scopeHoisting: true,
-      vueRouterMode: 'history',
+      vueRouterMode: 'hash',
       distDir: '../dist',
-      publicPath: '',
-      // htmlFilename: ctx.dev ? '' : 'index.html',
+      publicPath: '/',
+      htmlFilename: ctx.dev ? '' : 'index.html',
       // vueCompiler: true,
       // gzip: true,
       // analyze: true,
@@ -39,6 +39,16 @@ module.exports = function (ctx) {
     devServer: {
       // https: true,
       // port: 8080,
+      proxy: {
+      // proxy all requests starting with /api to jsonplaceholder
+        '/api': {
+          target: 'http://localhost:4000/api',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': ''
+          }
+        }
+      },
       open: true // opens browser window automatically
     },
     // framework: 'all' --- includes everything; for dev only!
