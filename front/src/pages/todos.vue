@@ -60,93 +60,93 @@ ul
 .textLabel
   padding-left 5px
 .btnLi
-  float right 
+  float right
 </style>
 
 <script>
-  export default {
-    name: 'PageTodos',
-    data: () => ({
-      todo: {},
-      todos: [],
-      notifyAlertType: '',
-      notifyAlertMessage: '',
-      opened: false,
-      updateModal: false,
-      indexModal: '0',
-      todoModal:{}
-    }),
-    computed: {
-      // récuperer du state du store
-      token() {
-        return this.$store.state.global.token
-      },
-      connected() {
-        return this.$store.state.global.connected
-      },
-      apiHeader() {
-        return this.$store.state.global.apiHeader
-      },
-      userSession() {
-        return this.$store.state.global.userSession
-      },
+export default {
+  name: 'PageTodos',
+  data: () => ({
+    todo: {},
+    todos: [],
+    notifyAlertType: '',
+    notifyAlertMessage: '',
+    opened: false,
+    updateModal: false,
+    indexModal: '0',
+    todoModal: {}
+  }),
+  computed: {
+    // récuperer du state du store
+    token () {
+      return this.$store.state.global.token
     },
-    mounted() {
+    connected () {
+      return this.$store.state.global.connected
+    },
+    apiHeader () {
+      return this.$store.state.global.apiHeader
+    },
+    userSession () {
+      return this.$store.state.global.userSession
+    }
+  },
+  mounted () {
+    this.$axios.get('/api/todolistbyuser/' + this.userSession.id, this.apiHeader)
+      .then((res) => {
+        this.todos = res.data
+      })
+  },
+  methods: {
+    getTodos: function () {
       this.$axios.get('/api/todolistbyuser/' + this.userSession.id, this.apiHeader)
         .then((res) => {
           this.todos = res.data
         })
     },
-    methods: {
-      getTodos: function() {
-        this.$axios.get('/api/todolistbyuser/' + this.userSession.id, this.apiHeader)
-          .then((res) => {
-            this.todos = res.data
-          })
-      },
-      addTodo: function() {
-        this.$axios.post('/api/todolist/', {
-            title: this.todo.title,
-            complete: false,
-            userId: this.userSession.id
-          }, this.apiHeader)
-          .then((res) => {
-            this.getTodos()
-            this.todo = {}
-            this.notifyAlertType = 'positive'
-            this.notifyAlertMessage = "Votre tache a été enregistrée!"
-          })
-      },
-      putTodo: function(todo) {
-        this.$axios.put('/api/todolist/' + todo.id, {
-            title: todo.title,
-            complete: todo.complete,
-            userId: todo.userId
-          }, this.apiHeader)
-          .then((res) => {
-            this.getTodos()
-            this.notifyAlertType = 'positive'
-            this.notifyAlertMessage = "Votre tache a été mise à jour!"
-          })
-      },
-      delTodo: function(id) {
-        this.$axios.delete('/api/todolist/' + id, this.apiHeader)
-          .then((res) => {
-            this.getTodos()
-            this.notifyAlertType = 'positive'
-            this.notifyAlertMessage = "Votre tache a été supprimée!"
-          })
-      }
-    },
-    watch: {
-      notifyAlertMessage: function() {
-        this.$q.notify({
-          type: this.notifyAlertType,
-          message: this.notifyAlertMessage,
-          position: 'center',
-          timeout: 100
+    addTodo: function () {
+      this.$axios.post('/api/todolist/', {
+        title: this.todo.title,
+        complete: false,
+        userId: this.userSession.id
+      }, this.apiHeader)
+        .then((res) => {
+          this.getTodos()
+          this.todo = {}
+          this.notifyAlertType = 'positive'
+          this.notifyAlertMessage = 'Votre tache a été enregistrée!'
         })
-      }
+    },
+    putTodo: function (todo) {
+      this.$axios.put('/api/todolist/' + todo.id, {
+        title: todo.title,
+        complete: todo.complete,
+        userId: todo.userId
+      }, this.apiHeader)
+        .then((res) => {
+          this.getTodos()
+          this.notifyAlertType = 'positive'
+          this.notifyAlertMessage = 'Votre tache a été mise à jour!'
+        })
+    },
+    delTodo: function (id) {
+      this.$axios.delete('/api/todolist/' + id, this.apiHeader)
+        .then((res) => {
+          this.getTodos()
+          this.notifyAlertType = 'positive'
+          this.notifyAlertMessage = 'Votre tache a été supprimée!'
+        })
+    }
+  },
+  watch: {
+    notifyAlertMessage: function () {
+      this.$q.notify({
+        type: this.notifyAlertType,
+        message: this.notifyAlertMessage,
+        position: 'center',
+        timeout: 100
+      })
     }
   }
+}
 </script>

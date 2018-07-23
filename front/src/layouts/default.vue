@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import { openURL } from 'quasar'
 
 export default {
   name: 'LayoutDefault',

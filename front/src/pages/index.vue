@@ -54,64 +54,64 @@
 </style>
 
 <script>
-  export default {
-    name: 'PageIndex',
-    data() {
-      return {
-        userLogin: {},
-        userSignup: {},
-        opened: false,
-        notifyAlertType: '',
-        notifyAlertMessage: ''
-      }
-    },
-    methods: {
-      signup: function() {
-        this.$axios.post('/api/signup/', this.userSignup)
-          .then((res) => {
-            this.opened = false
-            this.user = {}
-            this.notifyAlertType = 'positive'
-            this.notifyAlertMessage = "Utilisateur enregistré !"
-          })
-          .catch((err) => {
-            this.notifyAlertType = 'negative'
-            this.notifyAlertMessage = err.response.data
-          });
-      },
-      login: function() {
-        this.$axios.post('/api/login/', this.userLogin)
-          .then((res) => {
-            var user = {}
-            var token = res.data.token
-            user.id = res.data.userId
-            user.email = res.data.email
-            this.$q.localStorage.set('user', user)
-            this.$q.localStorage.set('token', token)
-            this.$store.dispatch('global/addUser', user)
-            this.$store.dispatch('global/addToken', token)
-            this.$store.dispatch('global/connected')
-            this.notifyAlertType = 'positive'
-            this.notifyAlertMessage = `Bienvenue ${user.email}`
-            setTimeout(() => {
-              this.$router.push('todos')
-            }, 1000);
-          })
-          .catch((err) => {
-            this.notifyAlertType = 'negative'
-            this.notifyAlertMessage = err.response.data
-          });
-      }
-    },
-    watch: {
-      notifyAlertMessage: function() {
-        this.$q.notify({
-          type: this.notifyAlertType,
-          message: this.notifyAlertMessage,
-          position: 'center',
-          timeout: 1000
+export default {
+  name: 'PageIndex',
+  data () {
+    return {
+      userLogin: {},
+      userSignup: {},
+      opened: false,
+      notifyAlertType: '',
+      notifyAlertMessage: ''
+    }
+  },
+  methods: {
+    signup: function () {
+      this.$axios.post('/api/signup/', this.userSignup)
+        .then((res) => {
+          this.opened = false
+          this.user = {}
+          this.notifyAlertType = 'positive'
+          this.notifyAlertMessage = 'Utilisateur enregistré !'
         })
-      }
+        .catch((err) => {
+          this.notifyAlertType = 'negative'
+          this.notifyAlertMessage = err.response.data
+        })
+    },
+    login: function () {
+      this.$axios.post('/api/login/', this.userLogin)
+        .then((res) => {
+          var user = {}
+          var token = res.data.token
+          user.id = res.data.userId
+          user.email = res.data.email
+          this.$q.localStorage.set('user', user)
+          this.$q.localStorage.set('token', token)
+          this.$store.dispatch('global/addUser', user)
+          this.$store.dispatch('global/addToken', token)
+          this.$store.dispatch('global/connected')
+          this.notifyAlertType = 'positive'
+          this.notifyAlertMessage = `Bienvenue ${user.email}`
+          setTimeout(() => {
+            this.$router.push('todos')
+          }, 1000)
+        })
+        .catch((err) => {
+          this.notifyAlertType = 'negative'
+          this.notifyAlertMessage = err.response.data
+        })
+    }
+  },
+  watch: {
+    notifyAlertMessage: function () {
+      this.$q.notify({
+        type: this.notifyAlertType,
+        message: this.notifyAlertMessage,
+        position: 'center',
+        timeout: 1000
+      })
     }
   }
+}
 </script>
