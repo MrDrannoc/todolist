@@ -55,8 +55,8 @@ export default {
   data () {
     return {
       userLogin: {
-        email: 'poyer.k@gmail.com',
-        password: 'Todo@850'
+        email: '',
+        password: ''
       },
       userSignup: {},
       opened: false,
