@@ -1,24 +1,24 @@
 <template>
   <q-page class="">
+    <h3 class="text-center">Liste des taches</h3>
+    <q-btn @click="opened = true" color="primary" class="btnAdd">Ajouter une tache</q-btn>
     <q-modal v-model="opened">
       <q-card-title class="text-center bg-primary text-white">
         Saisir votre tache
       </q-card-title>
       <form @submit.prevent='addTodo(), opened = false'>
-        <q-input v-model="todo.title" float-label="Saisir votre todo"></q-input>
-        <q-btn align="center">Enregistrer</q-btn>
+        <q-input v-model="title" float-label="Saisir votre todo"></q-input>
+        <q-btn type="submit" align="center">Enregistrer</q-btn>
       </form>
     </q-modal>
-    <h3 class="text-center">Liste des taches</h3>
-    <q-btn @click="opened = true" color="primary" class="btnAdd">Ajouter une tache</q-btn>
     <div class="todolist">
       <ul>
         <li v-for="(todo, index) in todos" :key="index">
           <q-icon v-if="todo.complete == true" color="primary" name="check_circle" size="2em" />
-          <q-icon v-if="todo.complete == false" color="primary" name="radio_button_unchecked" size="2em" /><label class="textLabel">{{todo.title}}</label>
+          <q-icon v-if="todo.complete == false" color="primary" name="radio_button_unchecked" size="2em" />
+          <label class="textLabel">{{todo.title}}</label>
           <div class="btnLi">
-            <!-- <q-btn @click.prevent="putTodo(todo.id, index)">Modifier</q-btn> -->
-            <q-btn @click="updateModal = true, indexModal = index, todoModal=todo">Modifier</q-btn>
+            <q-btn @click="updateModal = true, Object.assign(todoModal, todo)">Modifier</q-btn>
             <q-btn @click.prevent="delTodo(todo.id)">Supprimer</q-btn>
           </div>
           <q-modal v-model="updateModal">
@@ -28,7 +28,8 @@
             <form @submit.prevent='putTodo(todoModal), updateModal = false'>
               <q-checkbox v-model="todoModal.complete" label="Terminée" left-label/>
               <q-input v-model="todoModal.title" float-label="Modifier votre todo"></q-input>
-              <q-btn align="center">Enregistrer</q-btn>
+              <q-btn type="submit" align="center">Enregistrer</q-btn>
+              <q-btn @click="updateModal = false" align="center">Fermer</q-btn>
             </form>
           </q-modal>
         </li>
@@ -67,14 +68,17 @@ ul
 export default {
   name: 'PageTodos',
   data: () => ({
-    todo: {},
+    title: '',
     todos: [],
     notifyAlertType: '',
     notifyAlertMessage: '',
     opened: false,
     updateModal: false,
-    indexModal: '0',
-    todoModal: {}
+    todoModal: {
+      id: null,
+      title: null,
+      complete: null
+    }
   }),
   computed: {
     // récuperer du state du store
@@ -89,13 +93,17 @@ export default {
     },
     userSession () {
       return this.$store.state.global.userSession
+    },
+    todo () {
+      let newTodo = {}
+      newTodo.userId = this.userSession.id
+      newTodo.complete = false
+      newTodo.title = this.title
+      return newTodo
     }
   },
   mounted () {
-    this.$axios.get('/api/todolistbyuser/' + this.userSession.id, this.apiHeader)
-      .then((res) => {
-        this.todos = res.data
-      })
+    this.getTodos()
   },
   methods: {
     getTodos: function () {
@@ -105,24 +113,15 @@ export default {
         })
     },
     addTodo: function () {
-      this.$axios.post('/api/todolist/', {
-        title: this.todo.title,
-        complete: false,
-        userId: this.userSession.id
-      }, this.apiHeader)
+      this.$axios.post('/api/todolist/', this.todo, this.apiHeader)
         .then((res) => {
           this.getTodos()
-          this.todo = {}
           this.notifyAlertType = 'positive'
           this.notifyAlertMessage = 'Votre tache a été enregistrée!'
         })
     },
     putTodo: function (todo) {
-      this.$axios.put('/api/todolist/' + todo.id, {
-        title: todo.title,
-        complete: todo.complete,
-        userId: todo.userId
-      }, this.apiHeader)
+      this.$axios.put('/api/todolist/' + todo.id, todo, this.apiHeader)
         .then((res) => {
           this.getTodos()
           this.notifyAlertType = 'positive'

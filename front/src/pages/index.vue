@@ -1,12 +1,6 @@
 <template>
   <q-page>
     <q-modal v-model="opened" class="modal">
-      <!-- <form @submit.prevent="signup">
-        <q-input v-model="userSignup.email" type="email" placeholder="E-mail" />
-        <q-input v-model="userSignup.password" type="password" placeholder="Password" />
-        <q-btn>Enregistrer</q-btn>
-      </form>
-      <q-btn color="primary" @click="opened = false" label="Close" /> -->
       <q-card inline style="width: 400px">
         <q-card-title class="text-center bg-primary text-white">
           Saisir votre utilisateur
@@ -28,15 +22,17 @@
         Enregistrement / Connexion
       </q-card-title>
       <q-card-separator />
-      <q-card-main class="cardMain">
-        <q-input v-model="userLogin.email" type="email" placeholder="E-mail" />
-        <q-input v-model="userLogin.password" type="password" placeholder="Password" />
-      </q-card-main>
-      <q-card-separator />
-      <q-card-actions class="bg-primary text-white">
-        <q-btn @click="opened = true" flat>Créer un utilisateur</q-btn>
-        <q-btn @click="login" flat>Se connecter</q-btn>
-      </q-card-actions>
+      <form @submit.prevent="login">
+        <q-card-main class="cardMain">
+            <q-input v-model="userLogin.email" type="email" placeholder="E-mail" />
+            <q-input v-model="userLogin.password" type="password" placeholder="Password" />
+        </q-card-main>
+        <q-card-separator />
+        <q-card-actions class="bg-primary text-white">
+          <q-btn @click="opened = true" flat>Créer un utilisateur</q-btn>
+          <q-btn type="submit" flat>Se connecter</q-btn>
+        </q-card-actions>
+      </form>
     </q-card>
   </q-page>
 </template>
@@ -58,7 +54,10 @@ export default {
   name: 'PageIndex',
   data () {
     return {
-      userLogin: {},
+      userLogin: {
+        email: 'poyer.k@gmail.com',
+        password: 'Todo@850'
+      },
       userSignup: {},
       opened: false,
       notifyAlertType: '',
