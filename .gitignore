@@ -1,8 +1,6 @@
 .vscode
 node_modules
 
-dist
-
 /front/.quasar
 /front/.DS_Store
 /front/.thumbs.db
