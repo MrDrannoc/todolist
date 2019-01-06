@@ -1,19 +1,25 @@
 module.exports = {
   development: {
     username: 'root',
-    password: process.env.MYSQL_PWD,
+    password: '',
     database: 'todolist_dev',
     host: '127.0.0.1',
     dialect: 'mysql',
+    dialectOptions: {
+      socketPath: '/srv/run/mysqld/mysqld.sock'
+    },
     secret: 'secret',
     operatorsAliases: false
   },
   test: {
     username: 'root',
-    password: process.env.MYSQL_PWD,
+    password: '',
     database: 'todolist_test',
     host: '127.0.0.1',
     dialect: 'mysql',
+    dialectOptions: {
+      socketPath: '/srv/run/mysqld/mysqld.sock'
+    },
     secret: 'secret',
     operatorsAliases: false
   },
