@@ -3,7 +3,7 @@ module.exports = {
     username: 'root',
     password: 'Mysql@8503',
     database: 'todolist_dev',
-    host: '127.0.0.1',
+    host: 'localhost',
     dialect: 'mysql',
     dialectOptions: {
       socketPath: '/srv/run/mysqld/mysqld.sock'
@@ -15,7 +15,7 @@ module.exports = {
     username: 'root',
     password: 'Mysql@8503',
     database: 'todolist_test',
-    host: '127.0.0.1',
+    host: 'localhost',
     dialect: 'mysql',
     dialectOptions: {
       socketPath: '/srv/run/mysqld/mysqld.sock'
@@ -27,7 +27,7 @@ module.exports = {
     username: 'root',
     password: 'Mysql@8503',
     database: 'todolist_prod',
-    host: '127.0.0.1',
+    host: 'localhost',
     dialect: 'mysql',
     dialectOptions: {
       socketPath: '/srv/run/mysqld/mysqld.sock'
