@@ -19,11 +19,11 @@ module.exports = {
   },
   production: {
     username: 'root',
-    password: process.env.MYSQL_PWD,
+    password: '',
     database: 'todolist_prod',
     host: '127.0.0.1',
     dialect: 'mysql',
     secret: 'secret',
     operatorsAliases: false
   }
-}
+};
