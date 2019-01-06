@@ -23,6 +23,9 @@ module.exports = {
     database: 'todolist_prod',
     host: '127.0.0.1',
     dialect: 'mysql',
+    dialectOptions: {
+      socketPath: '/srv/run/mysqld/mysqld.sock'
+    },
     secret: 'secret',
     operatorsAliases: false
   }
