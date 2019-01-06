@@ -6,7 +6,7 @@ module.exports = {
     host: '127.0.0.1',
     dialect: 'mysql',
     dialectOptions: {
-      socketPath: '/srv/run/mysqld/mysqld/mysqld.sock'
+      socketPath: '/srv/run/mysqld/mysqld.sock'
     },
     secret: 'secret',
     operatorsAliases: false
@@ -18,7 +18,7 @@ module.exports = {
     host: '127.0.0.1',
     dialect: 'mysql',
     dialectOptions: {
-      socketPath: '/srv/run/mysqld/mysqld/mysqld.sock'
+      socketPath: '/srv/run/mysqld/mysqld.sock'
     },
     secret: 'secret',
     operatorsAliases: false
@@ -30,7 +30,7 @@ module.exports = {
     host: '127.0.0.1',
     dialect: 'mysql',
     dialectOptions: {
-      socketPath: '/srv/run/mysqld/mysqld/mysqld.sock'
+      socketPath: '/srv/run/mysqld/mysqld.sock'
     },
     secret: 'secret',
     operatorsAliases: false
